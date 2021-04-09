@@ -1,0 +1,12 @@
+html, body {
+  font-family: 'Noto Sans JP', sans-serif;
+
+}
+h1 {
+  color: red;
+  text-align: center; }
+
+.accordion-button_img {
+  margin-right: 10px;
+}
+

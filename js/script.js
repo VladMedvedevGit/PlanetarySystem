@@ -1,4 +1,4 @@
-const PlanetarySystem = [
+const PlanetarySystemData = [
 	{
 		name: `Planetary System`,
 		data: `The Planetary System is the gravitationally bound system of the Sun and the objects that orbit it, either directly or indirectly. Of the objects that orbit the Sun directly, the largest are the eight planets, with the remainder being smaller objects, the dwarf planets and small Solar System bodies.`
@@ -41,21 +41,30 @@ const PlanetarySystem = [
 	}
 ]
 const accordionPlanetarySystem = document.querySelector('#accordionPlanetarySystem');
+const renderPlanetarySystem = document.querySelector('#renderPlanetarySystem');
+const wrapper = document.querySelector('#wrapper');
 
-
+const SinglPlanet = {
+	PlanetarySystem: data => new PlanetarySystem(data),
+	Sun: data => new Sun(data)
+}
 
 class Planets{
     static createObjects(arr){ 
 		console.log(arr); 
 		
 		let planets = arr
-			.map(planet => new Planet(planet))
+			.map(planet => SinglPlanet[planet.name.replace(' ','')] ? SinglPlanet[planet.name.replace(' ','')](planet) : new Planet(planet));
+
+		let planetsAccordion = planets
 			.map((planet,index) => planet.renderPlanet(index))
 			.join('');
-		
-		accordionPlanetarySystem.innerHTML = planets;	
 
-		console.log(planets);
+		planets.map((planet) => {
+				planet.renderPipeline()
+		})
+				
+		accordionPlanetarySystem.innerHTML = planetsAccordion;	
     } 
 }
 
@@ -82,6 +91,49 @@ class Planet{
 			</div>
 	  	</div>`
 	}
+
+	renderPipeline(){
+
+		let planetBlock = document.createElement('div');
+		planetBlock.classList.add('render_planet');
+		
+		let planet = document.createElement(`img`);
+		planet.id = `render${this.name.replace(' ','')}`;
+		planet.src = `./images/${this.name.replace(' ','')}.svg`;
+		planet.alt = this.name;
+		planet.width = 35;
+		planet.height = 35;
+
+		planet.addEventListener('click',() => {
+			let btn = document.querySelector(`button[aria-controls="collapse${this.name.replace(' ','')}"]`);
+			btn.click();
+		});
+
+		let planetTitle = document.createElement('p');
+		planetTitle.innerHTML = this.name;
+
+		planetBlock.append(planet);
+		planetBlock.append(planetTitle);
+
+		renderPlanetarySystem.append(planetBlock);
+	}
+}	
+
+class PlanetarySystem extends Planet{
+	constructor(planet){
+		super(planet);
+	}
+	renderPipeline(){
+		let heading = document.createElement('h1');
+		heading.innerHTML = `<img src="images/${this.name.replace(' ','')}.svg" alt="${this.name}" width="50" height="50"> Introdaction to${this.name}`;
+		wrapper.prepend(heading);
+	}	
 }
 
-Planets.createObjects(PlanetarySystem);
+class Sun extends Planet{
+	constructor(planet){
+		super(planet);
+	}
+}
+
+Planets.createObjects(PlanetarySystemData);

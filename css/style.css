@@ -1,12 +1,56 @@
 html, body {
   font-family: 'Noto Sans JP', sans-serif;
-
+  padding: 15px 0;
+}
+html { 
+  overflow: scroll; 
 }
 h1 {
   color: red;
-  text-align: center; }
+  text-align: center; 
+}
 
 .accordion-button_img {
   margin-right: 10px;
 }
 
+.render {
+  display: flex;
+  align-items: center;
+  margin: 50px 0;
+  position: relative;  
+}
+.render::before{
+  content: '';
+  position: absolute;
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: black;
+  z-index: -1;
+}
+
+.render_planet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 70px;
+}
+.render_planet:first-of-type {
+      margin-left: -17px;
+}  
+.render_planet:last-of-type {
+    margin-right: 0;
+} 
+.render_planet p {
+  margin: 5px 0 0 0;
+}
+.render_planet img {
+  cursor: pointer;
+  transition: 0,2s;
+}
+.render_planet img:hover{
+  transform: scale(1.2);
+}
+ 

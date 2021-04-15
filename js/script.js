@@ -46,13 +46,13 @@ const wrapper = document.querySelector('#wrapper');
 
 const SinglPlanet = {
 	PlanetarySystem: data => new PlanetarySystem(data),
-	Sun: data => new Sun(data)
+	Sun: data => new Sun(data),
+	Earth: data => new Earth(data)
 }
 
 class Planets{
-    static createObjects(arr){ 
-		console.log(arr); 
-		
+    static createObjects(arr){
+		 
 		let planets = arr
 			.map(planet => SinglPlanet[planet.name.replace(' ','')] ? SinglPlanet[planet.name.replace(' ','')](planet) : new Planet(planet));
 
@@ -104,10 +104,7 @@ class Planet{
 		planet.width = 35;
 		planet.height = 35;
 
-		planet.addEventListener('click',() => {
-			let btn = document.querySelector(`button[aria-controls="collapse${this.name.replace(' ','')}"]`);
-			btn.click();
-		});
+		planet.addEventListener('click',this.pipelineClick.bind(this));
 
 		let planetTitle = document.createElement('p');
 		planetTitle.innerHTML = this.name;
@@ -117,6 +114,12 @@ class Planet{
 
 		renderPlanetarySystem.append(planetBlock);
 	}
+
+	pipelineClick(){
+		let btn = document.querySelector(`button[aria-controls="collapse${this.name.replace(' ','')}"]`);
+			btn.click();
+	}
+
 }	
 
 class PlanetarySystem extends Planet{
@@ -133,6 +136,19 @@ class PlanetarySystem extends Planet{
 class Sun extends Planet{
 	constructor(planet){
 		super(planet);
+	}
+}
+class Earth extends Planet{
+	constructor(planet){
+		super(planet);
+	}
+
+	pipelineClick(){
+		super.pipelineClick();
+		this.earthMethod();
+	}
+    earthMethod(){
+		console.log(`Working with ${this.name}`);
 	}
 }
 

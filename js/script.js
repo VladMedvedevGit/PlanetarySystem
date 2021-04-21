@@ -24,6 +24,13 @@ const PlanetarySystemData = [
 		data: `Mars (1.5 AU from the Sun) is smaller than Earth and Venus (0.107 M⊕). It has an atmosphere of mostly carbon dioxide with a surface pressure of 6.1 millibars (roughly 0.6% of that of Earth). Its surface, peppered with vast volcanoes, such as Olympus Mons, and rift valleys, such as Valles Marineris, shows geological activity that may have persisted until as recently as 2 million years ago. Its red colour comes from iron oxide (rust) in its soil. Mars has two tiny natural satellites (Deimos and Phobos) thought to be either captured asteroids, or ejected debris from a massive impact early in Mars's history.`
 	},
 	{
+		name: `Tesla`,
+		data: `Tesla Roadster is an electric sports car that served as the dummy payload for the February 2018 Falcon Heavy test flight and became an artificial satellite of the Sun. "Starman", a mannequin dressed in a spacesuit, occupies the driver's seat. The car and rocket are products of Tesla and SpaceX. It is the first production car launched into space and first to orbit the sun.
+		The car, mounted on the rocket's second stage, acquired enough velocity to escape Earth's gravity and enter an elliptical heliocentric orbit crossing the orbit of Mars.
+		The first Mars close approach within 5 million miles of the planet was 7 of October 2020.
+		Now the car is 160,976,833 miles from Mars, moving away from the planet at a speed of 38,718 mi/h (62,311 km/h, 17.31 km/s).`	
+	},
+	{
 		name: `Jupiter`,
 		data: `Jupiter (5.2 AU), at 318 M⊕, is 2.5 times the mass of all the other planets put together. It is composed largely of hydrogen and helium. Jupiter's strong internal heat creates semi-permanent features in its atmosphere, such as cloud bands and the Great Red Spot. Jupiter has 79 known satellites. The four largest, Ganymede, Callisto, Io, and Europa, show similarities to the terrestrial planets, such as volcanism and internal heating. Ganymede, the largest satellite in the Solar System, is larger than Mercury.`
 	},
@@ -47,7 +54,8 @@ const wrapper = document.querySelector('#wrapper');
 const SinglPlanet = {
 	PlanetarySystem: data => new PlanetarySystem(data),
 	Sun: data => new Sun(data),
-	Earth: data => new Earth(data)
+	Earth: data => new Earth(data),
+	Tesla: data => new Tesla(data)
 }
 
 class Planets{
@@ -149,6 +157,19 @@ class Earth extends Planet{
 	}
     earthMethod(){
 		console.log(`Working with ${this.name}`);
+	}
+}
+class Tesla extends Planet{
+	constructor(planet){
+		super(planet);
+	}
+
+	pipelineClick(){
+		super.pipelineClick();
+		this.TeslaMethod();
+	}
+    TeslaMethod(){
+	    confirm("Hi, FRiEND! I'm STARMAN. I'm not a planet, but I am flying in my Tesla by Solar orbit.  Do you want to know where am I just NOW?") ? window.open("https://www.whereisroadster.com") : '';
 	}
 }
 

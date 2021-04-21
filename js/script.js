@@ -55,7 +55,8 @@ const SinglPlanet = {
 	PlanetarySystem: data => new PlanetarySystem(data),
 	Sun: data => new Sun(data),
 	Earth: data => new Earth(data),
-	Tesla: data => new Tesla(data)
+	Tesla: data => new Tesla(data),
+	Jupiter: data => new Jupiter(data)
 }
 
 class Planets{
@@ -109,8 +110,8 @@ class Planet{
 		planet.id = `render${this.name.replace(' ','')}`;
 		planet.src = `./images/${this.name.replace(' ','')}.svg`;
 		planet.alt = this.name;
-		planet.width = 35;
-		planet.height = 35;
+		planet.width = 40;
+		planet.height = 40;
 
 		planet.addEventListener('click',this.pipelineClick.bind(this));
 
@@ -136,7 +137,7 @@ class PlanetarySystem extends Planet{
 	}
 	renderPipeline(){
 		let heading = document.createElement('h1');
-		heading.innerHTML = `<img src="images/${this.name.replace(' ','')}.svg" alt="${this.name}" width="50" height="50"> Introdaction to${this.name}`;
+		heading.innerHTML = `<img src="images/${this.name.replace(' ','')}.svg" alt="${this.name}" width="50" height="50"> Introdaction to ${this.name}`;
 		wrapper.prepend(heading);
 	}	
 }
@@ -169,7 +170,20 @@ class Tesla extends Planet{
 		this.TeslaMethod();
 	}
     TeslaMethod(){
-	    confirm("Hi, FRiEND! I'm STARMAN. I'm not a planet, but I am flying in my Tesla by Solar orbit.  Do you want to know where am I just NOW?") ? window.open("https://www.whereisroadster.com") : '';
+	    confirm(`Hi, FRiEND! I'm STARMAN. I'm not a planet, but I am also flying in my ${this.name} by Solar orbit.  Do you want to know where am I just NOW?`) ? window.open("https://www.whereisroadster.com") : '';
+	}
+}
+class Jupiter extends Planet{
+	constructor(planet){
+		super(planet);
+	}
+
+	pipelineClick(){
+		super.pipelineClick();
+		this.jupiterMethod();
+	}
+    jupiterMethod(){
+		alert(`Hello! It's ${this.name}- the LARGEST PLANET in the Planetary System.`);
 	}
 }
 
